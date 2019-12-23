@@ -1,0 +1,6 @@
+app:
+  mysql:
+    enabled: true
+    url: root:root@(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+    maxIdleConnection: 100
+    maxOpenConnection: 130
