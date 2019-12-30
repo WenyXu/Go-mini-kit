@@ -1,4 +1,4 @@
-package modelBoot
+package model
 
 import "go-mini-kit.com/user-srv/model/user"
 

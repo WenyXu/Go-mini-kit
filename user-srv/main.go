@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/micro/go-plugins/config/source/grpc"
+	"go-mini-kit.com/user-srv/model"
 
 	"github.com/micro/cli"
 	"github.com/micro/go-micro"
@@ -14,16 +15,15 @@ import (
 	"go-mini-kit.com/boot/common"
 	"go-mini-kit.com/boot/config"
 	"go-mini-kit.com/user-srv/handler"
-	"go-mini-kit.com/user-srv/model"
 	userProto "go-mini-kit.com/user-srv/proto/user"
 )
 
 var (
 	_appName = "user_srv"
-	_cfg     = &userCfg{}
+	_config  = &userConfig{}
 )
-type userCfg struct {
-	common.AppCfg
+type userConfig struct {
+	common.AppConfig
 }
 
 func main() {
@@ -45,7 +45,7 @@ func main() {
 	service.Init(
 		micro.Action(func(c *cli.Context) {
 			// Initialize model
-			modelBoot.Init()
+			model.Init()
 			// Initialize handler
 			handler.Init()
 		}),
@@ -63,8 +63,8 @@ func main() {
 }
 
 func registryOptions(ops *registry.Options) {
-	etcdCfg := &common.Etcd{}
-	err := config.Instance().Scan("etcd", etcdCfg)
+	etcdCfg := &common.EtcdConfig{}
+	err := config.GetInstance().Scan("etcd", etcdCfg)
 	if err != nil {
 		panic(err)
 	}
@@ -79,12 +79,12 @@ func initConfig(){
 
 	boot.Init(config.WithSource(source))
 
-	err := config.Instance().Scan(_appName, _cfg)
+	err := config.GetInstance().Scan(_appName, _config)
 	if err != nil {
 		panic(err)
 	}
 
-	log.Logf("[initCfg] config，_cfg：%v", _cfg)
+	log.Logf("[initCfg] config，_config：%v", _config)
 
 	return
 }

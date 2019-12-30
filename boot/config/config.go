@@ -9,9 +9,9 @@ import (
 )
 
 var (
-	m            sync.RWMutex
-	_initialized bool
-	c = &configurator{}
+	m             sync.RWMutex
+	_initialized  bool
+	_configurator = &configurator{}
 )
 
 // IConfigurator interface
@@ -24,7 +24,7 @@ type configurator struct {
 	conf config.Config
 }
 
-func (c *configurator) init(ops Options) (err error) {
+func (c *configurator) init(options Options) (err error) {
 	m.Lock()
 	defer m.Unlock()
 
@@ -34,7 +34,7 @@ func (c *configurator) init(ops Options) (err error) {
 	}
 
 	c.conf = config.NewConfig()
-	err = c.conf.Load(ops.Sources...)
+	err = c.conf.Load(options.Sources...)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,20 +75,20 @@ func (c *configurator) Scan(name string, config interface{}) (err error) {
 	return
 }
 
-// Instance get Instance
-func Instance() IConfigurator {
-	return c
+// GetInstance get GetInstance
+func GetInstance() IConfigurator {
+	return _configurator
 }
 
 // Init initialize
-func Init(opts ...Option) {
+func Init(optionList ...Option) {
 
-	ops := Options{}
-	for _, o := range opts {
-		o(&ops)
+	options := Options{}
+	for _, option := range optionList {
+		option(&options)
 	}
 
-	c = &configurator{}
+	_configurator = &configurator{}
 
-	_ = c.init(ops)
+	_ = _configurator.init(options)
 }

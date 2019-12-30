@@ -12,6 +12,7 @@ import (
 var (
 	_client      *r.Client
 	m            sync.RWMutex
+	_config		 =&redisConfig{}
 	_initialized bool
 )
 // init Initialize Redis
@@ -30,25 +31,24 @@ func initRedis() {
 
 	log.Log("[initRedis] Initializing Redis...")
 
-	c := config.Instance()
-	cfg := &redis{}
-	err := c.Scan("redis", cfg)
+	c := config.GetInstance()
+	err := c.Scan("redisConfig", _config)
 	if err != nil {
 		log.Logf("[initRedis] %s", err)
 	}
 
-	if !cfg.Enabled {
+	if !_config.Enabled {
 		log.Logf("[initRedis] Redis disabled")
 		return
 	}
 
 	// Sentinel Mode
-	if cfg.Sentinel != nil && cfg.Sentinel.Enabled {
+	if _config.Sentinel != nil && _config.Sentinel.Enabled {
 		log.Log("[initRedis] Initializing Redis，Sentinel Mode...")
-		initSentinel(cfg)
+		initSentinel(_config)
 	} else { // Single Mode
 		log.Log("[initRedis] Initializing Redis，Single Mode...")
-		initSingle(cfg)
+		initSingle(_config)
 	}
 
 	log.Log("[initRedis] Initializing Redis，Testing connection...")

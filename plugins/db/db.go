@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"sync"
 
-	"go-mini-kit.com/boot"
 	"github.com/micro/go-micro/util/log"
+	"go-mini-kit.com/boot"
 )
 
 var (
 	_initialized bool
-	mysqlDB      *sql.DB
+	_mysqlDB     *sql.DB
+	_config		 =&db{}
 	m            sync.RWMutex
 )
 
@@ -39,5 +40,5 @@ func initDB() {
 
 // GetDB get DB
 func GetDB() *sql.DB {
-	return mysqlDB
+	return _mysqlDB
 }

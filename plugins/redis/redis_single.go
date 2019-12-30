@@ -4,26 +4,25 @@ import (
 	r "github.com/go-redis/redis"
 )
 
-
-// redis redis config
-type redis struct {
-	Enabled  bool           `json:"enabled"`
-	Conn     string         `json:"conn"`
-	Password string         `json:"password"`
-	DBNum    int            `json:"dbNum"`
-	Timeout  int            `json:"timeout"`
-	Sentinel *redisSentinel `json:"sentinel"`
+// redisConfig redisConfig config
+type redisConfig struct {
+	Enabled  bool                 `json:"enabled"`
+	Conn     string               `json:"conn"`
+	Password string               `json:"password"`
+	DBNum    int                  `json:"dbNum"`
+	Timeout  int                  `json:"timeout"`
+	Sentinel *redisSentinelConfig `json:"sentinel"`
 }
 
-func initSingle(redisConfig *redis) {
+func initSingle(c *redisConfig) {
 	_client = r.NewClient(&r.Options{
-		Addr:     redisConfig.Conn,
-		Password: redisConfig.Password, // no password set
-		DB:       redisConfig.DBNum,    // use default DB
+		Addr:     c.Conn,
+		Password: c.Password, // no password set
+		DB:       c.DBNum,    // use default DB
 	})
 }
 
-// Redis get redis
+// Redis get redisConfig
 func Redis() *r.Client {
 	return _client
 }

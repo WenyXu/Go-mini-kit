@@ -23,34 +23,34 @@ type mysql struct {
 func initMysql() {
 	log.Logf("[initMysql] initializing Mysql")
 
-	c := config.Instance()
-	cfg := &db{}
+	c := config.GetInstance()
+	//_config := &db{}
 
-	err := c.Scan("db", cfg)
+	err := c.Scan("db", _config)
 	if err != nil {
 		log.Logf("[initMysql] %s", err)
 	}
 
-	if !cfg.Mysql.Enable {
+	if !_config.Mysql.Enable {
 		log.Logf("[initMysql] Mysql disabled")
 		return
 	}
 
 	// create connection
-	mysqlDB, err = sql.Open("mysql", cfg.Mysql.URL)
+	_mysqlDB, err = sql.Open("mysql", _config.Mysql.URL)
 	if err != nil {
 		log.Fatal(err)
 		panic(err)
 	}
 
 	// set max connection
-	mysqlDB.SetMaxOpenConns(cfg.Mysql.MaxOpenConnection)
+	_mysqlDB.SetMaxOpenConns(_config.Mysql.MaxOpenConnection)
 
 	// set max idle connection
-	mysqlDB.SetMaxIdleConns(cfg.Mysql.MaxIdleConnection)
+	_mysqlDB.SetMaxIdleConns(_config.Mysql.MaxIdleConnection)
 
 	// ping
-	if err = mysqlDB.Ping(); err != nil {
+	if err = _mysqlDB.Ping(); err != nil {
 		log.Fatal(err)
 	}
 

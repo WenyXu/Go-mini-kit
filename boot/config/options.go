@@ -7,11 +7,11 @@ type Options struct {
 	Sources []source.Source
 }
 
-type Option func(o *Options)
+type Option func(ops *Options)
 
 //WithSource func
 func WithSource(src source.Source) Option {
-	return func(o *Options) {
-		o.Sources = append(o.Sources, src)
+	return func(ops *Options) {
+		ops.Sources = append(ops.Sources, src)
 	}
 }
