@@ -1,8 +1,8 @@
 package db
 
 import (
-	"go-mini-kit.com/boot/config"
 	"database/sql"
+	"go-mini-kit.com/boot/config"
 
 	"github.com/micro/go-micro/util/log"
 )
