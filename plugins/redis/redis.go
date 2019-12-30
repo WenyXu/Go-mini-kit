@@ -3,10 +3,10 @@ package redis
 import (
 	"sync"
 
-	"go-mini-kit.com/boot"
-	"go-mini-kit.com/boot/config"
 	r "github.com/go-redis/redis"
 	"github.com/micro/go-micro/util/log"
+	"go-mini-kit.com/boot"
+	"go-mini-kit.com/boot/config"
 )
 
 var (
