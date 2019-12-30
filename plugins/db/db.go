@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"Go-mini-kit/boot"
+	"go-mini-kit.com/boot"
 	"github.com/micro/go-micro/util/log"
 )
 

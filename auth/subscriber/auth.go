@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/micro/go-micro/util/log"
 
-	auth "Go-mini-kit/auth/proto/auth"
+	auth "go-mini-kit.com/auth/proto/auth"
 )
 
 type Auth struct{}

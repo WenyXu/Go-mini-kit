@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sync"
 
-	"Go-mini-kit/plugins/db"
-	userProto "Go-mini-kit/user-srv/proto/user"
+	"go-mini-kit.com/plugins/db"
+	userProto "go-mini-kit.com/user-srv/proto/user"
 	"github.com/micro/go-micro/util/log"
 )
 

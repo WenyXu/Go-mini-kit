@@ -5,7 +5,7 @@ This is the Auth service
 Generated with
 
 ```
-micro new Go-mini-kit/auth --namespace=im.terminal.go.srv.auth --type=srv
+micro new Go-mini-kit.com/auth --namespace=im.terminal.go.srv.auth --type=srv
 ```
 
 ## Getting Started

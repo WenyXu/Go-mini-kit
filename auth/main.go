@@ -1,12 +1,12 @@
 package main
 
 import (
-	"Go-mini-kit/auth/handler"
-	"Go-mini-kit/auth/subscriber"
+	"go-mini-kit.com/auth/handler"
+	"go-mini-kit.com/auth/subscriber"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/util/log"
 
-	auth "Go-mini-kit/auth/proto/auth"
+	auth "go-mini-kit.com/auth/proto/auth"
 )
 
 func main() {

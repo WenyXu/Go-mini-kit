@@ -1,7 +1,6 @@
 package main
 
 import (
-	"Go-mini-kit/boot/common"
 	"fmt"
 	"github.com/micro/go-plugins/config/source/grpc"
 
@@ -11,11 +10,12 @@ import (
 	"github.com/micro/go-micro/registry/etcd"
 	"github.com/micro/go-micro/util/log"
 
-	"Go-mini-kit/boot"
-	"Go-mini-kit/boot/config"
-	"Go-mini-kit/user-srv/handler"
-	"Go-mini-kit/user-srv/model"
-	userProto "Go-mini-kit/user-srv/proto/user"
+	"go-mini-kit.com/boot"
+	"go-mini-kit.com/boot/common"
+	"go-mini-kit.com/boot/config"
+	"go-mini-kit.com/user-srv/handler"
+	"go-mini-kit.com/user-srv/model"
+	userProto "go-mini-kit.com/user-srv/proto/user"
 )
 
 var (

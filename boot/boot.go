@@ -1,7 +1,7 @@
 package boot
 
 import (
-	"Go-mini-kit/boot/config"
+	"go-mini-kit.com/boot/config"
 )
 
 var (

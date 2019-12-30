@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/micro/go-micro/util/log"
 
-	userModel "Go-mini-kit/user-srv/model/user"
-	userProto "Go-mini-kit/user-srv/proto/user"
+	userModel "go-mini-kit.com/user-srv/model/user"
+	userProto "go-mini-kit.com/user-srv/proto/user"
 )
 
 var (

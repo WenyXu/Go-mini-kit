@@ -1,6 +1,6 @@
 package jwt
 
-import "Go-mini-kit/boot"
+import "go-mini-kit.com/boot"
 
 // jwt config
 type jwt struct {

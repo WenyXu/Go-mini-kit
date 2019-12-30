@@ -1,6 +1,6 @@
 package modelBoot
 
-import "Go-mini-kit/user-srv/model/user"
+import "go-mini-kit.com/user-srv/model/user"
 
 func Init(){
 	user.Init()

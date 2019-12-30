@@ -340,11 +340,11 @@ micro new command 
 [Document](https://micro.mu/docs/new.html)
 ## 使用脚手架生成
 ```shell
-micro new --namespace=im.terminal.go --type=srv --alias=user Go-mini-kit/user-srv
+micro new --namespace=im.terminal.go --type=srv --alias=user Go-mini-kit.com/user-srv
 ```
 
 ```shell
-Creating service im.terminal.go.srv.user in /home/weny/Projects/Golang/src/Go-mini-kit/user-srv
+Creating service im.terminal.go.srv.user in /home/weny/Projects/Golang/src/Go-mini-kit.com/user-srv
 
 .
 ├── main.go
@@ -445,7 +445,7 @@ message Response {
 #### 相关阅读
 [protoc-gen-micro](https://github.com/micro/protoc-gen-micro)
 ```shell
-weny@weny-server:~/Projects/Golang/src/Go-mini-kit/user-srv$ protoc --proto_path=. --go_out=. --micro_out=. proto/user/user.proto
+weny@weny-server:~/Projects/Golang/src/Go-mini-kit.com/user-srv$ protoc --proto_path=. --go_out=. --micro_out=. proto/user/user.proto
 ```
 ### DB table
 ```shell
@@ -486,7 +486,7 @@ Or GUI 
 [document/config](https://micro.mu/docs/go-config.html)
 [document/zh-cn/config](https://micro.mu/docs/cn/go-config.html)
 ### Code
-[https://github.com/WenyXu/Go-mini-kit/tree/master/user-srv/basic](https://github.com/WenyXu/Go-mini-kit/tree/master/user-srv/basic)
+[https://github.com/WenyXu/Go-mini-kit.com/tree/master/user-srv/basic](https://github.com/WenyXu/Go-mini-kit.com/tree/master/user-srv/basic)
 
 
 ## Conf
@@ -498,7 +498,7 @@ Or GUI 
 │   └── application.yml
 ```
 ### Files
-[https://github.com/WenyXu/Go-mini-kit/tree/master/user-srv/conf](https://github.com/WenyXu/Go-mini-kit/tree/master/user-srv/conf)
+[https://github.com/WenyXu/Go-mini-kit.com/tree/master/user-srv/conf](https://github.com/WenyXu/Go-mini-kit.com/tree/master/user-srv/conf)
 
 
 ## User Model
@@ -513,7 +513,7 @@ Or GUI 
 ```go
 package modelBoot
 
-import "Go-mini-kit/user-srv/model/user"
+import "go-mini-kit.com/user-srv/model/user"
 
 func Init(){
 	user.Init()
@@ -528,9 +528,9 @@ import(
 	"fmt"
 	"sync"
 
-	userProto "Go-mini-kit/user-srv/proto/user"
+	userProto "go-mini-kit.com/user-srv/proto/user"
 	"github.com/micro/go-micro/util/log"
-	"Go-mini-kit/user-srv/basic/db"
+	"go-mini-kit.com/user-srv/basic/db"
 )
 
 var (
@@ -590,8 +590,8 @@ import (
 	"context"
 	"github.com/micro/go-micro/util/log"
 
-	userModel "Go-mini-kit/user-srv/model/user"
-	userProto "Go-mini-kit/user-srv/proto/user"
+	userModel "go-mini-kit.com/user-srv/model/user"
+	userProto "go-mini-kit.com/user-srv/proto/user"
 )
 
 var (
@@ -644,11 +644,11 @@ import (
 	"github.com/micro/go-micro/registry/etcd"
 	"github.com/micro/go-micro/util/log"
 
-	userProto "Go-mini-kit/user-srv/proto/user"
-	"Go-mini-kit/user-srv/basic"
-	"Go-mini-kit/user-srv/basic/config"
-	"Go-mini-kit/user-srv/handler"
-	"Go-mini-kit/user-srv/model"
+	userProto "go-mini-kit.com/user-srv/proto/user"
+	"go-mini-kit.com/user-srv/basic"
+	"go-mini-kit.com/user-srv/basic/config"
+	"go-mini-kit.com/user-srv/handler"
+	"go-mini-kit.com/user-srv/model"
 )
 
 func main() {
@@ -697,10 +697,10 @@ go run main.go plugin.go
 ```
 
 ```shell
-weny@weny-server:~/Projects/Golang/src/Go-mini-kit/user-srv$ go run main.go plugin.go
-2019-12-23 11:15:03.769178 I | [Init] Loading config file, path: /home/weny/Projects/Golang/src/Go-mini-kit/user-srv/conf/application.yml, {Include:etcd, db}
-2019-12-23 11:15:03.769199 I | [Init] Loading config file, path: /home/weny/Projects/Golang/src/Go-mini-kit/user-srv/conf/application-etcd.yml
-2019-12-23 11:15:03.769209 I | [Init] Loading config file, path: /home/weny/Projects/Golang/src/Go-mini-kit/user-srv/conf/application-db.yml
+weny@weny-server:~/Projects/Golang/src/Go-mini-kit.com/user-srv$ go run main.go plugin.go
+2019-12-23 11:15:03.769178 I | [Init] Loading config file, path: /home/weny/Projects/Golang/src/Go-mini-kit.com/user-srv/conf/application.yml, {Include:etcd, db}
+2019-12-23 11:15:03.769199 I | [Init] Loading config file, path: /home/weny/Projects/Golang/src/Go-mini-kit.com/user-srv/conf/application-etcd.yml
+2019-12-23 11:15:03.769209 I | [Init] Loading config file, path: /home/weny/Projects/Golang/src/Go-mini-kit.com/user-srv/conf/application-db.yml
 2019-12-23 11:15:03.770365 I | Transport [http] Listening on [::]:39417
 2019-12-23 11:15:03.770406 I | Broker [http] Connected to [::]:37017
 2019-12-23 11:15:03.771701 I | Registry [etcd] Registering node: im.terminal.go.srv.user-fd1b7ed3-488d-4bfe-8c68-e86b93b80bc5
@@ -732,4 +732,4 @@ $ micro --registry=etcd call {Server Name} User.QueryUserByName '{"userName":"mi
 }
 ```
 # Source Code
-[https://github.com/WenyXu/Go-mini-kit](https://github.com/WenyXu/Go-mini-kit)
+[https://github.com/WenyXu/Go-mini-kit.com](https://github.com/WenyXu/Go-mini-kit.com)
