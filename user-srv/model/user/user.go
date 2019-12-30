@@ -1,12 +1,12 @@
 package user
 
-import(
+import (
 	"fmt"
 	"sync"
 
+	"Go-mini-kit/plugins/db"
 	userProto "Go-mini-kit/user-srv/proto/user"
 	"github.com/micro/go-micro/util/log"
-	"Go-mini-kit/user-srv/basic/db"
 )
 
 var (
@@ -38,7 +38,7 @@ func GetService()(IService,error){
 	return srv,nil
 }
 
-//TODO: move these funcs into a new file
+//QueryUserByName TODO: move these funcs into a new file
 func (s *service) QueryUserByName(userName string) (res *userProto.User, err error) {
 	queryString := `SELECT user_id, user_name FROM user WHERE user_name = ?`
 

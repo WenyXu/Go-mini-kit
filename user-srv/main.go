@@ -1,32 +1,42 @@
 package main
 
 import (
+	"Go-mini-kit/boot/common"
 	"fmt"
+	"github.com/micro/go-plugins/config/source/grpc"
 
-	"github.com/micro/go-micro"
 	"github.com/micro/cli"
+	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/registry"
 	"github.com/micro/go-micro/registry/etcd"
 	"github.com/micro/go-micro/util/log"
 
-	userProto "Go-mini-kit/user-srv/proto/user"
-	"Go-mini-kit/user-srv/basic"
-	"Go-mini-kit/user-srv/basic/config"
+	"Go-mini-kit/boot"
+	"Go-mini-kit/boot/config"
 	"Go-mini-kit/user-srv/handler"
 	"Go-mini-kit/user-srv/model"
+	userProto "Go-mini-kit/user-srv/proto/user"
 )
+
+var (
+	_appName = "user_srv"
+	_cfg     = &userCfg{}
+)
+type userCfg struct {
+	common.AppCfg
+}
 
 func main() {
 
 	// Basic Config Init 
-	basicBoot.Init()
+	boot.Init()
 	
-	reqistry := etcd.NewRegistry(registryOptions)
+	reg := etcd.NewRegistry(registryOptions)
 
 	// New Service
 	service := micro.NewService(
 		micro.Name("im.terminal.go.srv.user"),
-		micro.Registry(reqistry),
+		micro.Registry(reg),
 		micro.Version("latest"),
 	)
 
@@ -41,7 +51,9 @@ func main() {
 	)
 
 	// Register Handler
-	userProto.RegisterUserHandler(service.Server(), new(handler.Service))
+	if err:=userProto.RegisterUserHandler(service.Server(), new(handler.Service)); err!=nil{
+		log.Fatal(err)
+	}
 
 	// Run service
 	if err := service.Run(); err != nil {
@@ -50,7 +62,28 @@ func main() {
 }
 
 func registryOptions(ops *registry.Options) {
-	etcdCfg := config.GetEtcdConfig()
-	ops.Addrs = []string{fmt.Sprintf("%s:%d", etcdCfg.GetHost(), etcdCfg.GetPort())}
+	etcdCfg := &common.Etcd{}
+	err := config.Instance().Scan("etcd", etcdCfg)
+	if err != nil {
+		panic(err)
+	}
+	ops.Addrs = []string{fmt.Sprintf("%s:%d", etcdCfg.Host, etcdCfg.Port)}
 }
 
+func initConfig(){
+	source := grpc.NewSource(
+		grpc.WithAddress("127.0.0.1:9600"),
+		grpc.WithPath("micro"),
+	)
+
+	boot.Init(config.WithSource(source))
+
+	err := config.Instance().Scan(_appName, _cfg)
+	if err != nil {
+		panic(err)
+	}
+
+	log.Logf("[initCfg] config，_cfg：%v", _cfg)
+
+	return
+}
