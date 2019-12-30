@@ -19,27 +19,27 @@ import (
 var (
 	mux        sync.RWMutex
 	configMaps = make(map[string]*proto.ChangeSet)
-	// 根据需要改成可配置的app列表
+	// config file list
 	apps = []string{"micro"}
 )
 // Service struct
 type Service struct{}
 
 func main() {
-	// 灾难恢复
+	// recover
 	defer func() {
 		if r := recover(); r != nil {
 			log.Logf("[main] Recovered in f %v", r)
 		}
 	}()
 
-	// 加载并侦听配置文件
+	// loading and watch config file
 	err := loadAndWatchConfigFile()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// 新建grpc Server服务
+	// create a new gRPC server
 	service := grpc2.NewServer()
 	proto.RegisterSourceServer(service, new(Service))
 	ts, err := net.Listen("tcp", ":9600")
@@ -48,7 +48,7 @@ func main() {
 	}
 	log.Logf("configServer started")
 
-	// 启动
+	// start server
 	err = service.Serve(ts)
 	if err != nil {
 		log.Fatal(err)
@@ -70,7 +70,7 @@ func (s Service) Watch(req *proto.WatchRequest, server proto.Source_WatchServer)
 		ChangeSet: getConfig(appName),
 	}
 	if err = server.Send(rsp); err != nil {
-		log.Logf("[Watch] 侦听处理异常，%s", err)
+		log.Logf("[Watch] watching failed，%s", err)
 		return err
 	}
 
@@ -78,20 +78,20 @@ func (s Service) Watch(req *proto.WatchRequest, server proto.Source_WatchServer)
 }
 
 func loadAndWatchConfigFile() (err error) {
-	// 加载每个应用的配置文件
+	// loading files in dir
 	for _, app := range apps {
 		if err := config.Load(file.NewSource(
 			file.WithPath("./conf/" + app + ".yml"),
 		)); err != nil {
-			log.Fatalf("[loadAndWatchConfigFile] 加载应用配置文件 异常，%s", err)
+			log.Fatalf("[loadAndWatchConfigFile] loading files in dir failed，%s", err)
 			return err
 		}
 	}
 
-	// 侦听文件变动
+	// watching the modification of files
 	watcher, err := config.Watch()
 	if err != nil {
-		log.Fatalf("[loadAndWatchConfigFile] 开始侦听应用配置文件变动 异常，%s", err)
+		log.Fatalf("[loadAndWatchConfigFile] watching the modification of files is failed，%s", err)
 		return err
 	}
 
@@ -99,11 +99,11 @@ func loadAndWatchConfigFile() (err error) {
 		for {
 			v, err := watcher.Next()
 			if err != nil {
-				log.Fatalf("[loadAndWatchConfigFile] 侦听应用配置文件变动 异常， %s", err)
+				log.Fatalf("[loadAndWatchConfigFile] watching the modification of files is failed， %s", err)
 				return
 			}
 
-			log.Logf("[loadAndWatchConfigFile] 文件变动，%s", string(v.Bytes()))
+			log.Logf("[loadAndWatchConfigFile] files modified，%s", string(v.Bytes()))
 		}
 	}()
 

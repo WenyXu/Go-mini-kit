@@ -11,8 +11,6 @@ import (
 var (
 	m            sync.RWMutex
 	_initialized bool
-
-	// 默认配置器
 	c = &configurator{}
 )
 

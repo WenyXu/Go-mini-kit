@@ -1,6 +1,6 @@
 package common
 
-// Etcd 配置
+// Etcd config
 type Etcd struct {
 	Enabled bool   `json:"enabled"`
 	Host    string `json:"host"`

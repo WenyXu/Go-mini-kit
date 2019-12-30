@@ -17,15 +17,16 @@ type Options struct {
 type Option func(o *Options)
 
 func Init(opts ...config.Option) {
-	// 初始化配置
+	// Initializing config
 	config.Init(opts...)
 
-	// 加载依赖配置的插件
+	// Initializing plugin's init
 	for _, f := range pluginFuncs {
 		f()
 	}
 }
 
+// Register func
 func Register(f func()) {
 	pluginFuncs = append(pluginFuncs, f)
 }
