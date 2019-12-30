@@ -28,8 +28,9 @@ type userCfg struct {
 
 func main() {
 
-	// Basic Config Init 
-	boot.Init()
+	// Basic Config Init
+	initConfig()
+	//boot.Init()
 	
 	reg := etcd.NewRegistry(registryOptions)
 
