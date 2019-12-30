@@ -14,8 +14,8 @@ var (
 	c = &configurator{}
 )
 
-// Configurator interface
-type Configurator interface {
+// IConfigurator interface
+type IConfigurator interface {
 	Scan(name string, config interface{}) (err error)
 }
 
@@ -76,7 +76,7 @@ func (c *configurator) Scan(name string, config interface{}) (err error) {
 }
 
 // Instance get Instance
-func Instance() Configurator {
+func Instance() IConfigurator {
 	return c
 }
 

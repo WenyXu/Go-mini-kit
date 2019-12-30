@@ -13,7 +13,7 @@ import (
 	"github.com/micro/go-micro/config/source/file"
 	"github.com/micro/go-micro/util/log"
 	proto "github.com/micro/go-plugins/config/source/grpc/proto"
-	grpc2 "google.golang.org/grpc"
+	grpc "google.golang.org/grpc"
 )
 
 var (
@@ -40,7 +40,7 @@ func main() {
 	}
 
 	// create a new gRPC server
-	service := grpc2.NewServer()
+	service := grpc.NewServer()
 	proto.RegisterSourceServer(service, new(Service))
 	ts, err := net.Listen("tcp", ":9600")
 	if err != nil {

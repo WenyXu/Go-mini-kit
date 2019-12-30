@@ -33,7 +33,7 @@ func Init()  {
 
 func GetService()(IService,error){
 	if srv ==nil{
-		return nil,fmt.Errorf(("[GetService] GetService srv was not inited"))
+		return nil,fmt.Errorf("[GetService] GetService srv was not inited")
 	}
 	return srv,nil
 }
