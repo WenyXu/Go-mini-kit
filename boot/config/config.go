@@ -29,13 +29,11 @@ func (c *configurator) init(ops Options) (err error) {
 	defer m.Unlock()
 
 	if _initialized {
-		log.Logf("[init] 配置已经初始化过")
+		log.Logf("[init] initialized")
 		return
 	}
 
 	c.conf = config.NewConfig()
-
-	// 加载配置
 	err = c.conf.Load(ops.Sources...)
 	if err != nil {
 		log.Fatal(err)
@@ -43,9 +41,9 @@ func (c *configurator) init(ops Options) (err error) {
 
 	go func() {
 
-		log.Logf("[init] 侦听配置变动 ...")
+		log.Logf("[init] start to watching modification of files ...")
 
-		// 开始侦听变动事件
+		// start to watching
 		watcher, err := c.conf.Watch()
 		if err != nil {
 			log.Fatal(err)
@@ -57,11 +55,10 @@ func (c *configurator) init(ops Options) (err error) {
 				log.Fatal(err)
 			}
 
-			log.Logf("[init] 侦听配置变动: %v", string(v.Bytes()))
+			log.Logf("[init] modification of files : %v", string(v.Bytes()))
 		}
 	}()
 
-	// 标记已经初始化
 	_initialized = true
 	return
 }
@@ -73,7 +70,7 @@ func (c *configurator) Scan(name string, config interface{}) (err error) {
 	if v != nil {
 		err = v.Scan(config)
 	} else {
-		err = fmt.Errorf("[Scan] 配置不存在，err：%s", name)
+		err = fmt.Errorf("[Scan] config is not exist ，err：%s", name)
 	}
 	return
 }
