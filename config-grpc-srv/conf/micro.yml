@@ -39,7 +39,7 @@ micro:
     enabled: true
     conn: 127.0.0.1:6379
     dbNum: 8
-    password: 123456
+    password: "123456"
     timeout: 3000
     sentinel:
       enabled: false
