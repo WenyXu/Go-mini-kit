@@ -13,7 +13,7 @@ import (
 	"github.com/micro/go-micro/config/source/file"
 	"github.com/micro/go-micro/util/log"
 	proto "github.com/micro/go-plugins/config/source/grpc/proto"
-	grpc "google.golang.org/grpc"
+	"google.golang.org/grpc"
 )
 
 var (
